@@ -10,7 +10,6 @@ bot = ChatBot(
         'Default Response Bot',
         storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
         logic_adapters=[
-            'chatterbot.logic.MathematicalEvaluation',
             'chatterbot.logic.BestMatch'
         ],
         filters=[
