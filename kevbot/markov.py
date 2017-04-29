@@ -103,7 +103,6 @@ class MarkovMongo(object):
             key.pop()
             key.reverse()
             key.append(newword)
-        words[-1] += '.'
 
         return ' '.join(words)
 
