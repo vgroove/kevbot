@@ -9,7 +9,8 @@ import re
 client = discord.Client()
 #chat_engine = MarkovMongo()
 is_url = re.compile("^(https?|ftp)://[^\s/$.?#].[^\s]*$@iS")
-executor = ProcessPoolExecutor(3)
+generate_exec = ProcessPoolExecutor(1)
+update_exec = ProcessPoolExecutor(2)
 
 def generate(seed=None):
     """Generate a response given a seed"""
@@ -37,18 +38,18 @@ async def on_message(message):
             logging.info("Responding to message: \"{0}\"".format(message.content))
             if len(words) > 6:
                 index = random.randint(0, len(words)-2)
-                response = await client.loop.run_in_executor(executor, 
+                response = await client.loop.run_in_executor(generate_exec, 
                         generate, (words[index], words[index + 1]))
                 logging.info("Generated \"{0}\" from seed \"({1}, {2})\"".format(
                     response, words[index], words[index + 1]))
             elif len(words) > 2:
                 index = random.randint(0, len(words)-1)
-                response = await client.loop.run_in_executor(executor,
+                response = await client.loop.run_in_executor(generate_exec,
                         generate, words[index])
                 logging.info("Generated \"{0}\" from seed \"{1}\"".format(
                     response, words[index]))
             else:
-                response = await client.loop.run_in_executor(executor, generate)
+                response = await client.loop.run_in_executor(generate_exec, generate)
                 logging.info("Generated \"{0}\" with no seed".format(response))
             if not is_url.match(response):
                 logging.info("Sending response...")
@@ -58,7 +59,7 @@ async def on_message(message):
 
     # Record conversation anytime someone else speaks
     if message.author.name != "Kevbot":
-        await client.loop.run_in_executor(executor, update_db, message.content)
+        await client.loop.run_in_executor(update_exec, update_db, message.content)
 
 @client.event
 async def on_reaction_add(reaction, user):
