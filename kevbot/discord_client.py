@@ -20,17 +20,17 @@ class DiscordClient(discord.Client):
         """Called when message is received on any channel on server"""
 
         # Respond to message if not in an ignored channel
-        if self.bot.should_respond(message.content, message.server.name, message.channel.name):
-            response = await self.loop.run_in_executor(self.bot.generate_exec, 
-                    self.bot.generate, message.content)
+        if self.bot.should_respond(message.content, message.author.name, 
+                message.server.name, message.channel.name):
+            response = await  self.bot.generate(message.content, loop=self.loop)
 
             if response is not None:
                 logging.info("Sending response...")
                 await self.send_message(message.channel, response)
         
         # Record conversation anytime someone else speaks
-        if message.author.name != self.config["name"]:
-            await self.loop.run_in_executor(self.bot.update_exec, self.bot.update_db, message.content)
+        if message.author.name != self.bot.name:
+            await self.bot.update_db(message.content, loop=self.loop)
 
     @asyncio.coroutine
     async def on_reaction_add(self, reaction, user):
