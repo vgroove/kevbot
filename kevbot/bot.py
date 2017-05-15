@@ -1,4 +1,6 @@
+import commands
 from concurrent.futures import ProcessPoolExecutor
+import config
 import logging
 from markov import MarkovMongo
 import random
@@ -34,8 +36,9 @@ def _update_db_worker(text):
 class Bot():
     """Does stuff"""
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, config_file):
+        self.config_file = config_file
+        self.config = config.load_config(config_file)
         if "core_limit" in self.config:
             self.update_exec = ProcessPoolExecutor(int(self.config["core_limit"]/2))
         else:
@@ -46,6 +49,10 @@ class Bot():
     def name(self):
         """Gets current name of bot"""
         return self.config["name"]
+
+    def is_command(self, text):
+        """Determines if message is a command"""
+        return text.split(' ', 1)[0].startswith("!")
 
     def should_respond(self, text, author, server, channel=None):
         """Determines if bot should respond based on configuration and command words"""
@@ -69,4 +76,36 @@ class Bot():
         if loop is not None:
             return loop.run_in_executor(self.update_exec, _update_db_worker, text)
         return _update_db_worker(text)
+
+    def process_command(self, text, server):
+        """Processes given text as a command"""
+        words = text.split(' ')
+        command_name = words[0][1:].lower()
+
+        if command_name == "talk":
+            try:
+                value = float(words[1])
+                old = self.config["servers"][server]["responsiveness"]
+                self.config["servers"][server]["responsiveness"] = value
+                self.save_config()
+
+                if value > old:
+                    return "Okay dokey!"
+                elif value < old:
+                    return "Shutting up now!"
+                else:
+                    return "I already am..."
+            except:
+                return "Hey man, try using a value between 0 and 1."
+        else:
+            # Search for command in commands module, call with all params provided
+            try:
+                command = getattr(commands, command_name)
+                return command(*words[1:])
+            except:
+                return "Invalid command, dummy."
+
+    def save_config(self):
+        """Saves any changes of the configurtion to file"""
+        config.save_config(self.config, self.config_file)
 

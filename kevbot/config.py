@@ -24,3 +24,7 @@ def load_config(filename):
         except ValueError:
             print("Invalid configuration JSON file!")
     return bot_config
+
+def save_config(data, filename):
+    with open(filename, "w") as f:
+        json.dump(data, f)

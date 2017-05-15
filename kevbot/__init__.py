@@ -10,7 +10,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
     # Read file from default location
-    bot_config = load_config("config.json")
+    bot_config = "config.json"
 
     # Creating bot and attaching to chat client
     bot = Bot(bot_config)

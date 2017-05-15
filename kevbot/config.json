@@ -1,18 +1,1 @@
-{
-    "name": "Kevbot", 
-    "core_limit": 4, 
-    "log_path": ".", 
-    "servers": 
-    {
-        "The Brothers of Awesome": 
-        {
-            "ignore": [], 
-            "responsiveness": 0.02
-        },
-        "Kevbot Test Server": 
-        {
-            "ignore": ["ignore"], 
-            "responsiveness": 1
-        }
-    }
-}
+{"name": "Kevbot", "core_limit": 4, "log_path": ".", "servers": {"The Brothers of Awesome": {"ignore": [], "responsiveness": 0.02}, "Kevbot Test Server": {"ignore": ["ignore"], "responsiveness": 0.0}}}
