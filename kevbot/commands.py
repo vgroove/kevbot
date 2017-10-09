@@ -1,4 +1,10 @@
 from random import randint
+import requests
+
+def joke():
+	"""Tells a random joke"""
+	jokerequest = requests.get("https://icanhazdadjoke.com/", headers = {"Accept":"text/plain"})
+	return jokerequest.text
 
 def roll(*args):
     """Rolls a die with the number of sides specified"""
