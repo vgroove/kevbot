@@ -97,6 +97,13 @@ class Bot():
                     return "I already am..."
             except:
                 return "Hey man, try using a value between 0 and 1."
+        elif command_name == "status":
+            try:
+                return "Ignored: {0}\nResponsiveness: {1}".format(
+                    self.config["servers"][server]["ignore"],
+                    self.config["servers"][server]["responsiveness"])
+            except:
+                return "Error retrieving configuration"
         else:
             # Search for command in commands module, call with all params provided
             try:
