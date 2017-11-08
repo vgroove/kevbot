@@ -58,7 +58,7 @@ class Bot():
         """Determines if bot should respond based on configuration and command words"""
         if ((server in self.config["servers"] and
             channel not in self.config["servers"][server]["ignore"]) and
-            (text.split(' ', 1)[0].lower() == self.config["name"].lower() or
+            (text.split(' ', 1)[0].lower().startswith(self.config["name"].lower()) or
             random.random() < self.config["servers"][server]["responsiveness"]) and
             author != self.name):
                 return True
