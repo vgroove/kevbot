@@ -18,5 +18,5 @@ if __name__ == "__main__":
 
     # Running chat client
     logging.info("Connecting to Discord...")
-    client.run("MzA0NDQ2NzQwOTkwNTI1NDQw.C9mz2A.mMIaMFN86TCEtJTQiTCDxEZs9Bo")
+    client.run("key goes here!")
 
