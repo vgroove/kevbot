@@ -3,10 +3,10 @@ import requests
 import json
 
 def joke():
-	"""Tells a random joke"""
-	jokerequest = requests.get("https://icanhazdadjoke.com/", headers = {"Accept":"application/json"})
-	jokedata = json.loads(jokerequest.text)
-	return jokedata["joke"]
+    """Tells a random joke"""
+    jokerequest = requests.get("https://icanhazdadjoke.com/", headers = {"Accept":"application/json"})
+    jokedata = json.loads(jokerequest.text)
+    return jokedata["joke"]
 
 def roll(*args):
     """Rolls a die with the number of sides specified"""
