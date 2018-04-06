@@ -7,7 +7,6 @@ future==0.16.0
 greenlet==0.4.12
 msgpack-python==0.4.8
 multidict==2.1.4
-neovim==0.1.13
 oauthlib==2.0.2
 packaging==16.8
 pymongo==3.4.0
