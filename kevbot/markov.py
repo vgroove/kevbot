@@ -16,7 +16,7 @@ from pymongo import MongoClient
 class MarkovMongo(object):
     ''' Markov Chain implementation in python with storage in MongoDB.'''
 
-    def __init__(self, uri=None, dbname='testdb', coll='testcoll', order=2):
+    def __init__(self, uri='mongodb://mongodb', dbname='testdb', coll='testcoll', order=2):
         connection = MongoClient(uri)
         db = connection[dbname]
         self.collection = db[coll]
