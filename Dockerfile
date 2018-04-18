@@ -5,23 +5,18 @@
 #
 
 # Pull base image.
-FROM ubuntu:16.04
+FROM python:3
 
-# Copy over code
-ADD kevbot /kevbot
-ADD venv/requirements.txt /
-
-# Install and configure Python 3
-RUN apt-get update \
-  && apt-get install -y python3-pip python3-dev \
-  && cd /usr/local/bin \
-  && ln -s /usr/bin/python3 python \
-  && pip3 install --upgrade pip
+# Create directory for code to be mounted
+RUN mkdir /kevbot
 
 # Install pip packages
-RUN pip3 install -r /requirements.txt
+ADD requirements.txt /
+RUN pip install -r /requirements.txt
 
 # Define working directory.
+# For development purposes, kevbot directory is mounted as volume
+VOLUME ["/kevbot"]
 WORKDIR /kevbot
 
 # Define default command.

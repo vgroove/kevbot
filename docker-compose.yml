@@ -3,6 +3,8 @@ services:
     kevbot:
         build: .
         container_name: 'kevbot'
+        volumes:
+            - ./kevbot:/kevbot
         depends_on:
             - mongodb
     mongodb:
