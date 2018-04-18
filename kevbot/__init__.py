@@ -11,6 +11,7 @@ if __name__ == "__main__":
 
     # Read file from default location
     bot_config = "config.json"
+    config = load_config(bot_config)
 
     # Creating bot and attaching to chat client
     bot = Bot(bot_config)
@@ -18,5 +19,5 @@ if __name__ == "__main__":
 
     # Running chat client
     logging.info("Connecting to Discord...")
-    client.run("MzA0NDQ2NzQwOTkwNTI1NDQw.C9mz2A.mMIaMFN86TCEtJTQiTCDxEZs9Bo")
+    client.run(config["discord_key"])
 
