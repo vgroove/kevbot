@@ -5,6 +5,7 @@ def generate_config():
     bot_config["name"] = "Kevbot"
     bot_config["core_limit"] = 4
     bot_config["log_path"] = "."
+    bot_config["discord_key"] = "INSERT_DISCORD_API_KEY"
     bot_config["servers"] = {
             "Example 1": {
                 "ignore": ["channel 1", "channel 2"],
