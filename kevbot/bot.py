@@ -1,8 +1,8 @@
-import commands
+from .commands import *
 from concurrent.futures import ProcessPoolExecutor
-import config
+from .config import *
 import logging
-from markov import MarkovMongo
+from .markov import MarkovMongo
 import random
 
 def _generate_worker(text):

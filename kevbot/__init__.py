@@ -1,10 +1,10 @@
 import logging
-from bot import Bot
-from config import load_config
-from discord_client import DiscordClient
-from markov import MarkovMongo
+from .bot import Bot
+from .config import load_config
+from .discord_client import DiscordClient
+from .markov import MarkovMongo
 
-if __name__ == "__main__":
+def main():
     """Run Kevbot"""
     # Configure logging
     logging.basicConfig(level=logging.INFO)
@@ -20,4 +20,7 @@ if __name__ == "__main__":
     # Running chat client
     logging.info("Connecting to Discord...")
     client.run(config["discord_key"])
+
+if __name__ == "__main__":
+    main()
 
