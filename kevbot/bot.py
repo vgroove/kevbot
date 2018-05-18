@@ -1,8 +1,8 @@
-from .commands import *
+from kevbot.commands import *
 from concurrent.futures import ProcessPoolExecutor
-from .config import *
+from kevbot.config import load_config, save_config
 import logging
-from .markov import MarkovMongo
+from kevbot.text_gen.markov import MarkovMongo
 import random
 
 def _generate_worker(text):
@@ -38,7 +38,7 @@ class Bot():
 
     def __init__(self, config_file):
         self.config_file = config_file
-        self.config = config.load_config(config_file)
+        self.config = load_config(config_file)
         if "core_limit" in self.config:
             self.update_exec = ProcessPoolExecutor(int(self.config["core_limit"]/2))
         else:
@@ -114,5 +114,5 @@ class Bot():
 
     def save_config(self):
         """Saves any changes of the configurtion to file"""
-        config.save_config(self.config, self.config_file)
+        save_config(self.config, self.config_file)
 

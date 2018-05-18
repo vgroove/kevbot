@@ -1,8 +1,8 @@
 import logging
-from .bot import Bot
-from .config import load_config
-from .discord_client import DiscordClient
-from .markov import MarkovMongo
+from kevbot.bot import Bot
+from kevbot.config import load_config
+from kevbot.clients.discord_client import DiscordClient
+from kevbot.text_gen.markov import MarkovMongo
 
 def main():
     """Run Kevbot"""

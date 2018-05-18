@@ -1,5 +1,5 @@
 import asyncio
-from .config import load_config
+from kevbot.config import load_config
 import discord
 import logging
 
